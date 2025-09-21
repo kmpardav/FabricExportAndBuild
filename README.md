@@ -33,3 +33,59 @@ $env:CLIENT_SECRET= "********"
   -ClientSecret $env:CLIENT_SECRET `
   -OutputPath .\fabric-export.json `
   -MaxRps 2
+```
+
+### Usage
+1) Export + Build (one shot)
+```
+.\FabricExportAndBuild.ps1 -BuildAndExtract `
+  -TenantId "TENANT_ID" -ClientId "CLIENT_ID" -ClientSecret "CLIENT_SECRET" `
+  -OutputPath ".\fabric-export.json" -MaxRps 2
+```
+2) Export only
+```
+.\FabricExportAndBuild.ps1 `
+  -TenantId "TENANT_ID" -ClientId "CLIENT_ID" -ClientSecret "CLIENT_SECRET" `
+  -OutputPath ".\fabric-export.json"
+```
+3) Build only (from existing JSON)
+```
+.\FabricExportAndBuild.ps1 -Build -InputPath ".\fabric-export.json"
+```
+### Optional Flags
+```
+-IncludeAccessDetails (Admin).
+```
+Combine with -AccessGapSeconds & -AccessMaxCount. Rate-limit note: max/hour applies. 
+
+```
+-MaxRps (default 3).
+```
+Lower if you receive 429. 
+Microsoft Learn
+
+```
+-MaxRetries, -BaseBackoffSec
+```
+For fine-tuning backoff behavior.
+
+### Sample Output (anonymized)
+```
+Acquiring token ...
+Fetching workspaces (paged) ...
+  - aps_dp01_ppe_store
+  - aps_dp01_ppe_integration
+  - gscp_dp01_prod_store
+  - engineering_ppe
+  - presentation_prod
+Fetching capacities ...
+Fetching domains (Admin, 25 req/min cap) ...
+Export finished -> .\fabric-export.json
+
+=== SUMMARY ===
+61 workspaces | 48 items | 3 capacities | 2 domains
+
+...
+...
+...
+```
