@@ -1,7 +1,7 @@
 #requires -Version 5.1
 <#
   FabricExportAndBuild.ps1
-  Author: Konstantinos Bardavouras (@kostasmadhatter)
+  Author: Konstantinos Bardavouras
   License: MIT
 
   WHAT IT DOES
